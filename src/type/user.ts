@@ -9,7 +9,7 @@ export interface User {
 }
 
 export const validateUser = (user: User): boolean => {
-    let valid: boolean = false;
+    let valid: boolean = true;
 
     // make sure that the user id is a guid
     if (!guidRegEx.test(user.id)) {
@@ -27,7 +27,7 @@ export const validateUser = (user: User): boolean => {
     }
 
     // make sure email is a valid email address
-    if (!emailRegEx.test(user.email)) {
+    if (!emailRegEx.test(user.email.toLowerCase())) {
         valid = false;
     }
 

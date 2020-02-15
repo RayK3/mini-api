@@ -45,7 +45,6 @@ export const updateUser: Endpoint = {
         // grabbing the user id from the path
         const { params: { id } } = req;
         const user = req.body;
-
         const bodyIsValid = validateUser(user);
 
         if (bodyIsValid) {
