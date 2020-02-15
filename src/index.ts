@@ -1,13 +1,16 @@
-import express from 'express';
-import { getCountry, getUser, rootEndpoint } from './endpoint';
+import express, { Express } from 'express';
+import { endpoints } from './endpoint';
+import { Endpoint } from './type';
 
-const app = express();
+const app: Express = express();
 
+// specify that we will use json
 app.use(express.json());
 
-app.get('/', rootEndpoint);
-app.get('/country', getCountry);
-app.get('/users', getUser);
+// set up the endpoints
+endpoints.forEach((endpoint: Endpoint) => {
+    app[endpoint.method](endpoint.path, endpoint.handler);
+});
 
 const port: number = 3000;
 

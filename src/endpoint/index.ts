@@ -1,3 +1,2 @@
-export * from './root';
-export * from './user';
-export * from './country';
+import * as userEndpoints from './user';
+export const endpoints: any[] = Object.values(userEndpoints);
