@@ -1,0 +1,378 @@
+openapi: 3.0.0
+info:
+  title: Mini-API
+  description: API for use in a QA project for ENSE475
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Local testing server
+paths:
+  /users:
+    get:
+      summary: Returns a list of users.
+      tags: [User]
+      responses:
+        '200':    
+          description: A JSON array of users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrayOfUsers'
+        '400':
+          $ref: '#/components/responses/badRequest'
+  /user/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+        description: UUID of user to return
+    get:
+      summary: Returns a user by id
+      tags: [User]
+      responses:
+        '200':    
+          description: A JSON User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+        '400':
+          $ref: '#/components/responses/badRequest'
+        '404':
+          $ref: '#/components/responses/notFound'
+    put:
+      summary: Update a user
+      tags: [User]
+      requestBody:
+        description: User object to replace current user
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user'
+      responses:
+        '204':
+          $ref: '#/components/responses/noContent'
+        '400':
+          $ref: '#/components/responses/badRequest'
+        '404':
+          $ref: '#/components/responses/notFound'
+    delete:
+      summary: Delete a user by id
+      tags: [User]
+      responses:
+        '204':
+          $ref: '#/components/responses/noContent'
+        '400':
+          $ref: '#/components/responses/badRequest'
+        '404':
+          $ref: '#/components/responses/notFound'
+  /user:
+    post:
+      summary: Create a user
+      tags: [User]
+      requestBody:
+        description: User object to create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user'
+      responses:
+        '201':    
+          description: A JSON User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+        '400':
+          $ref: '#/components/responses/badRequest'
+        '404':
+          $ref: '#/components/responses/notFound'
+  /admins:
+    get:
+      summary: Returns a list of admins.
+      tags: [Admin]
+      responses:
+        '200':    
+          description: A JSON array of admins
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrayOfAdmins'
+        '400':
+          $ref: '#/components/responses/badRequest'
+  /admin/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+        description: UUID of admin to return
+    get:
+      summary: Returns an admin by id
+      tags: [Admin]
+      responses:
+        '200':    
+          description: A JSON Admin
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/admin'
+        '400':
+          $ref: '#/components/responses/badRequest'
+        '404':
+          $ref: '#/components/responses/notFound'
+    put:
+      summary: Update an admin
+      tags: [Admin]
+      requestBody:
+        description: Admin object to replace current admin
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/admin'
+      responses:
+        '204':
+          $ref: '#/components/responses/noContent'
+        '400':
+          $ref: '#/components/responses/badRequest'
+        '404':
+          $ref: '#/components/responses/notFound'
+    delete:
+      summary: Delete an admin by id
+      tags: [Admin]
+      responses:
+        '204':
+          $ref: '#/components/responses/noContent'
+        '400':
+          $ref: '#/components/responses/badRequest'
+        '404':
+          $ref: '#/components/responses/notFound'
+  /admin:
+    post:
+      summary: Create an admin
+      tags: [Admin]
+      requestBody:
+        description: Admin object to create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/admin'
+      responses:
+        '201':    
+          description: A JSON Admin
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/admin'
+        '400':
+          $ref: '#/components/responses/badRequest'
+        '404':
+          $ref: '#/components/responses/notFound'
+  /groups:
+    get:
+      summary: Get all groups
+      tags: [Group]
+      responses:
+        '200':    
+          description: A JSON array of groups
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/arrayOfGroups'
+        '400':
+          $ref: '#/components/responses/badRequest'
+  /group:
+    post:
+      summary: Create a group
+      tags: [Group]
+      requestBody:
+        description: Group object to create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/group'
+      responses:
+        '201':    
+          description: A JSON group
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/group'
+        '400':
+          $ref: '#/components/responses/badRequest'
+        '404':
+          $ref: '#/components/responses/notFound'
+  /group/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+        description: UUID of group to return
+    get:
+      summary: Get a group by id
+      tags: [Group]
+      responses:
+        '200':    
+          description: A JSON group
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/group'
+        '400':
+          $ref: '#/components/responses/badRequest'
+  /group/{groupId}/user/{userId}:
+    parameters:
+      - in: path
+        name: groupId
+        schema:
+          type: string
+          format: uuid
+        required: true
+        description: UUID of group
+      - in: path
+        name: userId
+        schema:
+          type: string
+          format: uuid
+        required: true
+        description: UUID of user
+    post:
+      summary: Add a user to a group
+      tags: [Group]
+      responses:
+        '204':
+          $ref: '#/components/responses/noContent'
+        '400':
+          $ref: '#/components/responses/badRequest'
+        '404':
+          $ref: '#/components/responses/notFound'
+    delete:
+      summary: Delete a user from a group
+      tags: [Group]
+      responses:
+        '204':
+          $ref: '#/components/responses/noContent'
+        '400':
+          $ref: '#/components/responses/badRequest'
+        '404':
+          $ref: '#/components/responses/notFound'
+  /group/{groupId}/admin/{adminId}:
+    parameters:
+      - in: path
+        name: groupId
+        schema:
+          type: string
+          format: uuid
+        required: true
+        description: UUID of group
+      - in: path
+        name: adminId
+        schema:
+          type: string
+          format: uuid
+        required: true
+        description: UUID of admin
+    post:
+      summary: Add an admin to a group
+      tags: [Group]
+      responses:
+        '204':
+          $ref: '#/components/responses/noContent'
+        '400':
+          $ref: '#/components/responses/badRequest'
+        '404':
+          $ref: '#/components/responses/notFound'
+    delete:
+      summary: Delete an admin from a group
+      tags: [Group]
+      responses:
+        '204':
+          $ref: '#/components/responses/noContent'
+        '400':
+          $ref: '#/components/responses/badRequest'
+        '404':
+          $ref: '#/components/responses/notFound'
+          
+components:
+  schemas:
+    arrayOfUsers:
+      type: array
+      items: 
+        $ref: '#/components/schemas/user'
+        
+    user:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name: 
+          type: string
+        age:
+          type: number
+        email:
+          type: string
+          format: email
+        groupId:
+          type: string
+          format: uuid
+          
+    arrayOfAdmins:
+      type: array
+      items: 
+        $ref: '#/components/schemas/admin'
+        
+    admin:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name: 
+          type: string
+        age:
+          type: number
+        email:
+          type: string
+          format: email
+        groupId:
+          type: string
+          format: uuid
+    
+    arrayOfGroups:
+      type: array
+      items:
+        $ref: '#/components/schemas/group'
+        
+    group:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name: 
+          type: string
+        adminId:
+          type: string
+          format: uuid
+  responses:
+    badRequest:
+      description: 'Invalid request'
+    notFound:
+      description: 'Resource not found'
+    noContent:
+      description: 'No content'
+        
