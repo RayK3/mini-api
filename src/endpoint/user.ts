@@ -20,6 +20,7 @@ export const getUserById: Endpoint = {
             res.status(404);
             res.json({ reason: 'No user exists with given id' } as Error);
         }
+        return;
     },
 }
 

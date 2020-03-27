@@ -4,7 +4,7 @@ import { User } from '../type';
 // holds definitions for 5 users that will be used to populate a database
 export const users: User[] = [
     {
-        id: uuidv4(),
+        id: '1',
         name: 'John Smith',
         age: 20,
         email: 'johnsmith@gmail.com',
