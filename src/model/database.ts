@@ -66,4 +66,8 @@ export class Database {
         }
 
     }
+
+    public getGroupByName(name: String): Group | undefined {
+        return groups.find((group) => (group.name == name));
+    }
 }
