@@ -11,7 +11,7 @@ test('retrieves user with id: 1', () => {
 });
 
 test('retrieves all users', () => {
-    expect(db.getUsers().length).toBe(5);
+    expect(db.getUsers().length).toBe(4);
 });
 
 test('retrieves James\' Group', () => {

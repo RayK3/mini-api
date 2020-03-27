@@ -38,7 +38,7 @@ export class Database {
         return user;
     }
 
-    public replaceUs er(updatedUser: User): boolean {
+    public replaceUser(updatedUser: User): boolean {
         // remove the user with the same id
         const isDeleted = this.deleteUser(updatedUser.id);
 
